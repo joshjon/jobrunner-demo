@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package rpc.service.v1;
+
+service Service {
+  rpc QueueJob(QueueJobRequest) returns (QueueJobResponse) {}
+  rpc StopJob(StopJobRequest) returns (StopJobResponse) {}
+  rpc Subscribe(SubscribeRequest) returns (stream SubscribeResponse) {}
+}
+
+message QueueJobRequest {
+  Command command = 1;
+}
+
+message QueueJobResponse {
+  string job_id = 1;
+}
+
+message StopJobRequest {
+  string job_id = 1;
+}
+
+message StopJobResponse {}
+
+message SubscribeRequest {
+  string job_id = 1;
+}
+
+message SubscribeResponse {
+  string message = 1;
+}
+
+message Command {
+  string cmd = 1;
+  repeated string args = 2;
+}
